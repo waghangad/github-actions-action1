@@ -1,0 +1,14 @@
+name: my first workflow
+on: push
+jobs: 
+  First-Job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Hello World
+        run: echo "Hello World" 
+    
+      - name: List Files
+        run: ls 
+      
+      - name: Read File
+        run: cat README.md
