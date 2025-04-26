@@ -16,7 +16,7 @@ jobs:
       - name: Read File
         run: cat README.md
 
-        # Multi Line Commands
+        # Multi Line Commands Example
       - name: List and Read File
         run: |
           echo "multi line command example"
