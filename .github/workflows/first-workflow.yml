@@ -7,6 +7,9 @@ jobs:
       - name: Print Hello World
         run: echo "Hello World" 
     
+      - name: Checkout Repo
+        uses: actions/checkout@4
+         
       - name: List Files
         run: ls 
       
