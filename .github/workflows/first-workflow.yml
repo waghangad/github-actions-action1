@@ -8,8 +8,8 @@ jobs:
         run: echo "Hello World" 
     
       - name: Checkout Repo
-        uses: actions/checkout@4
-         
+        uses: actions/checkout@v4
+
       - name: List Files
         run: ls 
       
