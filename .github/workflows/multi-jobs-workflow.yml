@@ -13,17 +13,19 @@ jobs:
             - name: build cowsay file
               run: |
                 cowsay -f dragon "Run for coverm I am a DRAGON....RAWR" >> dragon.txt 
-                sleep 30
+                sleep 5
     test_job_2:
+        needs: build_job_1
         runs-on: ubuntu-latest
         steps:
             - name: sleep 5 second
-              run: sleep 5
+              run: sleep 2
 
             - name: testing cowsay file
               run: grep -i "dragon" dragon.txt
 
     deploy_job_3:
+        needs: [build_job_1, test_job_2]
         runs-on: ubuntu-latest
         steps: 
             - name: read file
