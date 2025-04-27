@@ -1,0 +1,14 @@
+name: executing shell sript
+
+on:
+  push
+
+jobs:
+  ascii-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+    
+      - name: run shell script
+        run: ./scripts/ascii.sh
