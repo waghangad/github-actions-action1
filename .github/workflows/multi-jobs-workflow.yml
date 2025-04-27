@@ -1,32 +1,44 @@
 name: multiple job workflow
 on: push
 jobs:
-    build_job_1:
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout repo
-              uses: actions/checkout@v4
-            
-            - name: install cowsay
-              run: sudo apt-get install cowsay -y
+  build_job_1:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v4
+    
+    - name: install cowsay
+      run: sudo apt-get install cowsay -y
 
-            - name: build cowsay file
-              run: |
-                cowsay -f dragon "Run for coverm I am a DRAGON....RAWR" >> dragon.txt 
-                sleep 5
-    test_job_2:
-        needs: build_job_1
-        runs-on: ubuntu-latest
-        steps:
-            - name: sleep 5 second
-              run: sleep 2
+    - name: build cowsay file
+      run: cowsay -f dragon "Run for coverm I am a DRAGON....RAWR" >> dragon.txt 
 
-            - name: testing cowsay file
-              run: grep -i "dragon" dragon.txt
+    - name: upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dragon-text-file
+        path: dragon.txt
+        
+  test_job_2:
+    needs: build_job_1
+    runs-on: ubuntu-latest
+    steps:
+    - name: download arcticat
+      uses: actions/download-artifact@v3
+      with:
+        name: dragon-text-file
 
-    deploy_job_3:
-        needs: [build_job_1, test_job_2]
-        runs-on: ubuntu-latest
-        steps: 
-            - name: read file
-              run: cat dragon.txt
+    - name: testing cowsay file
+      run: grep -i "dragon" dragon.txt
+
+  deploy_job_3:
+    needs: [build_job_1, test_job_2]
+    runs-on: ubuntu-latest
+    steps: 
+    - name: download arcticat
+      uses: actions/download-artifact@v3
+      with:
+        name: dragon-text-file
+
+    - name: read file
+      run: cat dragon.txt
