@@ -1,3 +1,5 @@
+# Matrix Strategy Workflow
+
 name: matrix strategy 
 on:
   push:
@@ -9,10 +11,16 @@ jobs:
       matrix:
         os: [ubuntu-latest, ubuntu-24.04, windows-latest]
         images: [hello-world, nginx]
+        exclude:
+          - images: nginx
+            os: windows-latest
+        include:
+          - images: amd64/nginx
+            os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
     - name: Docker details
       run: docker info
 
-    - name: Run Image
+    - name: Run Image on ${{ matrix.os }}
       run: docker run ${{ matrix.images }}
