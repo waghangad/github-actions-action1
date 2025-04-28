@@ -1,6 +1,6 @@
 # There are multiple events on which we can trigger workflow like on push, on pull request, manual etc.
 
-name: exploring varibales and secrets
+name: triggering workflow events.
 on:
   workflow_dispatch:
 
