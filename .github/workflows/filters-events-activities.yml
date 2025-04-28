@@ -9,9 +9,9 @@ on:
     branches-ignore: 
     - feature/*         # feature/add-music,  feature/updateImage
     - test/**           # test/ui/index,     test/checkout/payment
-    branches: 
-    - main
-    - '!feature/*'      # ignoring any branch starting with feature using !
+    # branches: 
+    # - main
+    # - '!feature/*'      # ignoring any branch starting with feature using !
   pull_request: 
     types: 
     - opened
@@ -20,7 +20,7 @@ on:
     - README.md
     branches: 
     - main
-    
+
 jobs:
   hello:
     runs-on: ubuntu-latest
