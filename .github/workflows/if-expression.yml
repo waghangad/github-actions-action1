@@ -34,7 +34,6 @@ jobs:
     needs: docker_build_job
     steps:
     - name: docker deploy
-      timeout-minutes: 1
       run: |
         echo docker run -it -p 8080:80 $DOCKER_REGISTRT/${{ env.DOCKER_USERNAME }}/$DOCKER_IMAGE:latest
-        sleep 600
+        
