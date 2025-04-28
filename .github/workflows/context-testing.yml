@@ -1,0 +1,17 @@
+# GitHub Context
+
+name: contexts texting
+on:
+  push:
+  workflow_dispatch: 
+  
+
+jobs:
+  dump_context_to_log:
+    runs-on: ubuntu-latest
+    steps:
+    - name: dump github contexts
+      env: 
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo $GITHUB_CONTEXT
+
