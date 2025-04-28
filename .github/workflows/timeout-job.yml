@@ -1,0 +1,40 @@
+# Timeout can add at step level or job level.
+
+name: exploring job concurrency
+on: push
+
+env:
+  DOCKER_REGISTRY: docker.io
+  DOCKER_IMAGE: nginx
+
+jobs:
+  docker_build_job:
+    env: 
+      DOCKER_USERNAME: shidhart1
+    runs-on: ubuntu-latest
+    steps:
+    - name: build docker image
+      run: echo docker build -t ${{ env.DOCKER_REGISTRY }}/$DOCKER_USERNAME/$DOCKER_IMAGE:latest
+
+    - name: docker login
+      env: 
+        DOCKER_PASSWORD: s3userPass@d
+      run: echo docker login --username=${{ env.DOCKER_USERNAME }} --password=$DOCKER_PASSWORD
+
+    - name: docker push image
+      run: echo docker push $DOCKER_REGISTRT/$DOCKER_USERNAME/${{ env.DOCKER_IMAGE }}:latest
+
+  docker_deploy_job:
+    env: 
+      DOCKER_USERNAME: shidhart1
+    runs-on: ubuntu-latest
+    needs: docker_build_job
+    concurrency: 
+      group: production_deployment
+      cancel-in-progress: true 
+    steps:
+    - name: docker deploy
+      timeout-minutes: 1
+      run: |
+        echo docker run -it -p 8080:80 $DOCKER_REGISTRT/${{ env.DOCKER_USERNAME }}/$DOCKER_IMAGE:latest
+        sleep 600
