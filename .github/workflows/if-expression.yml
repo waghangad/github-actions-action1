@@ -1,7 +1,9 @@
 # If expression example. deploy job only work if branch is main.
 
 name: if expression
-on: push
+on: 
+  push:
+  merge_group: 
 
 env:
   DOCKER_REGISTRY: docker.io
@@ -25,7 +27,7 @@ jobs:
       run: echo docker push $DOCKER_REGISTRT/$DOCKER_USERNAME/${{ env.DOCKER_IMAGE }}:latest
 
   docker_deploy_job:
-    if: github.ref == 'ref/heads/main'
+    if: github.ref == 'refs/heads/main'
     env: 
       DOCKER_USERNAME: shidhart1
     runs-on: ubuntu-latest
