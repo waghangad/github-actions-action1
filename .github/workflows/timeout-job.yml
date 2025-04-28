@@ -29,9 +29,6 @@ jobs:
       DOCKER_USERNAME: shidhart1
     runs-on: ubuntu-latest
     needs: docker_build_job
-    concurrency: 
-      group: production_deployment
-      cancel-in-progress: true 
     steps:
     - name: docker deploy
       timeout-minutes: 1
