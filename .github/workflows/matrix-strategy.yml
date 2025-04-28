@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     strategy:
+      max-parallel: 2
       matrix:
         os: [ubuntu-latest, ubuntu-24.04, windows-latest]
         images: [hello-world, alpine]
@@ -16,7 +17,7 @@ jobs:
             os: windows-latest
         include:
           - images: amd64/alpine
-            os: ubuntu-24-04
+            os: ubuntu-24.04
     runs-on: ${{ matrix.os }}
     steps:
     - name: Docker details
