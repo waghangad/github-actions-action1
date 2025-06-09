@@ -1,0 +1,26 @@
+name: Multi Env actions
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        description: select the environment
+      boolean:
+        type: boolean
+        description: true or false
+      choice:
+        type: choice
+        description: make a choice
+        options:
+        - dev
+        - test
+        - stage
+        - prod
+
+jobs:
+  dev-job:
+    if: choice == dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Hello World
+        run: echo "Hello World" 
