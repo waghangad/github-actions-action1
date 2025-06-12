@@ -5,9 +5,6 @@ on:
       environment:
         type: environment
         description: select the environment
-      boolean:
-        type: boolean
-        description: true or false
       choice:
         type: choice
         description: make a choice
