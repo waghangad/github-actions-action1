@@ -43,7 +43,7 @@ jobs:
     - name: Print Deployment Environment
       run: |
         echo "Deployment Environment is ${{ env.ENV }}"
-        echo "BRANCH: ${{ GITHUB_REF }}"
+        echo "BRANCH: ${{ github.ref }}"
  
   dev-job:
     if: ${{ inputs.choice == 'dev' }} || contains(github.ref,'main')
