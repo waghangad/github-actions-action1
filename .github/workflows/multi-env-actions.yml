@@ -20,6 +20,31 @@ env:
   APP_NAME: 'Hello-World-APP'
 
 jobs:
+  identify-deployment-env:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Identifying Deployment Environment.
+      run: |
+        if [[ $GITHUB_EVENT_NAME == 'pull_request' ]]; then
+          BRANCH=$(echo GITHUB_REF | cut -d'/ -f4)
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+        else
+          BRANCH=$(echo GITHUB_REF | cut -d'/ -f3)
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+        fi
+
+        case $BRANCH in
+          integration*) echo "ENV=test" >> $GITHUB_ENV ;;
+          release*) echo "ENV=stage" >> $GITHUB_ENV ;;
+          master|main*) echo "ENV=prod" >> $GITHUB_ENV ;;
+          *) echo "ENV=dev" >> $GITHUB_ENV ;;
+        esac
+    
+    - name: Print Deployment Environment
+      run: |
+        echo "Deployment Environment is ${{ env.ENV }}"
+        echo "BRANCH: ${{ GITHUB_REF }}"
+ 
   dev-job:
     if: ${{ inputs.choice == 'dev' }} || contains(github.ref,'main')
     runs-on: ubuntu-latest
