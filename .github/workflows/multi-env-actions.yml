@@ -2,12 +2,9 @@ name: Multi Env actions
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        type: environment
-        description: select the environment
       choice:
         type: choice
-        description: make a choice
+        description: select the environment
         options:
         - dev
         - test
